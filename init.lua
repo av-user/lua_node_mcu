@@ -7,7 +7,7 @@ end
 
 function sendmail()
 print ("sendmail enter")
-    dofile("smtp_tls.lua")
+    dofile("smtp.lua")
 print ("sendmail exit")
 end
 
