@@ -105,6 +105,7 @@ state_data_sent = function (response)
     print("state_data_sent response: "..response.."response end")
     if  string.sub(response,1,3) == "354" then
         print("state_data_sent OK")
+        -- here I would like to send message headers and body, but it does not work. don't know why :(
         send (".")
         current_state = state_mail_sent
     else
