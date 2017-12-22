@@ -1,36 +1,12 @@
-wifi.setmode(wifi.STATION)
-wifi.sta.config({ssid="<your_accesspoint_name>", pwd="<your_accesspoint_password>"})
+require "global"
 
-function is_wifi_connected()
-    return wifi.sta.status() == wifi.STA_GOTIP
-end
-
-function sendmail()
-print ("sendmail enter")
+function sendmail() --will be called from 'wifi.lua' after successful wi-fi connect
+	print("wi-fi connected mail can be sent")
     dofile("smtp.lua")
-print ("sendmail exit")
 end
 
-function timer_callback()
-    if is_wifi_connected() then
-        print(wifi.sta.status())
-        print(wifi.sta.getip())
-        timer:unregister()
-        return sendmail();
-    else
-        print("...")
-    end
+function error(text)
+    print(text)
 end
 
-timer = tmr.create()
-if not timer:alarm(1000, tmr.ALARM_AUTO, timer_callback) then
-    print("uuups!")
-end
-
--- wifi.sta.getap(listap)
---function listap(t)
---    for ssid,v in pairs(t) do
---        authmode, rssi, bssid, channel = string.match(v, "(%d),(-?%d+),(%x%x:%x%x:%x%x:%x%x:%x%x:%x%x),(%d+)")
---        print(ssid,authmode,rssi,bssid,channel)
---    end
---end
+dofile("wifi.lua")
